@@ -10,4 +10,4 @@ $app->config('debug', true);
 $app->get('/','Core:getMainInfo');
 $app->get('/getCitys(/:id)','Core:getCitys');
 
-$app->run();
+$app->run(); 
