@@ -8,7 +8,7 @@
 class Core {
 
     public $mode;
-
+    
     //desktop
     public function __construct($mode = 'api') {
         $this->mode = $mode;
@@ -24,7 +24,7 @@ class Core {
         } else {
             $citys = 'All citys';
         }
-        return $this->helpReturn($citys);
+        return $this->helpReturn($citys,'many information');
     }
 
     public function getMainInfo() {
@@ -32,12 +32,17 @@ class Core {
         return $this->helpReturn($info);
     }
 
-    private function helpReturn($data) {
+    private function helpReturn($data,$info = false) {
         if ($this->mode == 'api') {
             $app = \Slim\Slim::getInstance();
             $app->status(200);
             $app->contentType('application/json');
-            $response = json_encode(array('response' => $data,'error'=>false));
+            $response = array('response' => $data,'error'=>false);
+            if($info){
+                $response['info'] = $info;
+            }
+            
+            $response = json_encode($response);
             echo $response;
             return;
         } elseif ($this->mode == 'desktop') {
